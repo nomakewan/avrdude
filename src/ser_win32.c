@@ -78,6 +78,10 @@ static BOOL serial_w32SetTimeOut(HANDLE hComPort, DWORD timeout) { // ms
   ctmo.ReadTotalTimeoutMultiplier = 0;
   ctmo.ReadTotalTimeoutConstant = timeout;
 
+  fflush(stderr);
+  printf("before SetCommTimeouts(hComPort, &ctmo)\n");
+  fflush(stdout);
+
   return SetCommTimeouts(hComPort, &ctmo);
 }
 
@@ -344,6 +348,11 @@ static int ser_send(const union filedescriptor *fd, const unsigned char *buf, si
     trace_buffer(__func__, buf, len);
 
   serial_w32SetTimeOut(hComPort, 500);
+
+  fflush(stderr);
+  printf("if(!WriteFile(hComPort, buf, len, &written, NULL))\n");
+  fflush(stdout);
+
 
   if(!WriteFile(hComPort, buf, len, &written, NULL)) {
     pmsg_error("unable to write: %s\n", "sorry no info avail"); // TODO
