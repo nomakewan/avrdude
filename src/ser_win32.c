@@ -77,6 +77,7 @@ static BOOL serial_w32SetTimeOut(HANDLE hComPort, DWORD timeout) { // ms
   ctmo.ReadIntervalTimeout = 0;
   ctmo.ReadTotalTimeoutMultiplier = 0;
   ctmo.ReadTotalTimeoutConstant = timeout;
+  ctmo.WriteTotalTimeoutConstant = 10*timeout;
 
   fflush(stderr);
   printf("before SetCommTimeouts(hComPort, &ctmo)\n");
