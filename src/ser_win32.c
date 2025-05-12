@@ -350,7 +350,7 @@ static int ser_send(const union filedescriptor *fd, const unsigned char *buf, si
   serial_w32SetTimeOut(hComPort, 500);
 
   fflush(stderr);
-  printf("if(!WriteFile(hComPort, buf, len, &written, NULL))\n");
+  printf("before WriteFile\n");
   fflush(stdout);
 
 
@@ -358,6 +358,10 @@ static int ser_send(const union filedescriptor *fd, const unsigned char *buf, si
     pmsg_error("unable to write: %s\n", "sorry no info avail"); // TODO
     return -1;
   }
+
+  fflush(stderr);
+  printf("After WriteFile()\n");
+  fflush(stdout);
 
   if(written != len) {
     pmsg_error("size/send mismatch\n");
